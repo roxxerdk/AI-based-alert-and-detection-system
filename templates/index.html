@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surveillance Dashboard</title>
+    <style>
+        /* --- CSS STYLING --- */
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --border-color: #334155;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            padding: 20px 0;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        /* Video Container */
+        .dashboard-container {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #000;
+        }
+
+        /* This image tag is where the video streams */
+        img#video-stream {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Overlay UI Elements */
+        .rec-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-red);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .rec-text {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Footer Info */
+        .info-panel {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Crowd Surveillance System</h1>
+        <div class="status-badge">SYSTEM ACTIVE</div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="video-wrapper">
+            <img src="{{ url_for('video_feed') }}" id="video-stream" alt="Live Video Feed">
+            
+            <div class="rec-indicator">
+                <div class="dot"></div>
+                <span class="rec-text">LIVE FEED</span>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <span>Source: Camera 01</span>
+            <span>Model: YOLOv8 Nano</span>
+        </div>
+    </div>
+
+</body>
+</html>
